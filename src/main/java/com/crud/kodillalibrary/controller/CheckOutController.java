@@ -18,15 +18,16 @@ public class CheckOutController {
     private final CheckOutMapper checkOutMapper;
     private final CheckOutService checkOutService;
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createCheckOut(@RequestBody CheckOutDto checkOutDto) {
-        CheckOut checkOut = checkOutMapper.mapToCheckOut(checkOutDto);
-        checkOutService.saveCheckOut(checkOut);
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/{pieceId}/{userId}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public CheckOutDto createCheckOut(@PathVariable Long pieceId, @PathVariable Long userId ) {
+         return checkOutMapper.mapToCheckOutDto(checkOutService.createCheck(pieceId, userId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{id}" ,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createCheckOut(@PathVariable Long id ) {
-         checkOutService.createCheck(id);
+    @RequestMapping(method = RequestMethod.PUT, value = "/{checkoutId}")
+    public CheckOutDto returnBook(@PathVariable Long checkoutId) {
+        return checkOutMapper.mapToCheckOutDto(checkOutService.returnBook(checkoutId));
     }
 
 }

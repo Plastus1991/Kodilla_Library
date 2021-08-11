@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +37,14 @@ public class Reader {
 
     @Column(name = "CREATE_DATE")
     private Date created;
+
+    @OneToMany(
+            targetEntity = CheckOut.class,
+            mappedBy = "reader",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<CheckOut> checkOutList;
 
 
     public Reader(Long id, String name, String secondName) {

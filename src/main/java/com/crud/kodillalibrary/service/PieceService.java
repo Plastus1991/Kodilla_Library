@@ -6,6 +6,8 @@ import com.crud.kodillalibrary.repository.PieceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PieceService {
@@ -14,5 +16,9 @@ public class PieceService {
 
     public void savePiece(final Piece piece) {
         pieceRepository.save(piece);
+    }
+
+    public List<Piece> getAllPieces() {
+        return pieceRepository.findAll();
     }
 }

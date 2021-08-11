@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -29,11 +29,16 @@ public class Piece {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "FK_TITLE")
+    @JoinColumn(name = "TITLE_ID")
     private Title title;
 
-    @OneToOne(mappedBy = "piece" )
-    private CheckOut checkOut;
+    @OneToMany(
+            targetEntity = CheckOut.class,
+            mappedBy = "piece",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<CheckOut> checkOutList;
 
     public Piece(Long id, String status, Title title) {
         this.id = id;

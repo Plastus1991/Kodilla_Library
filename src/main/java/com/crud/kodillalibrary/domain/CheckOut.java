@@ -31,15 +31,18 @@ public class CheckOut {
 
 
     @Column(name = "RETURN_DATE")
-    private LocalDate returnBook;
+    private Date returnBook;
 
-    @OneToOne
-    @JoinColumn(name = "piece_Id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "piece_Id")
     private Piece piece;
 
-    public CheckOut(Long id, int day, int month, int year, Piece piece) {
+    @ManyToOne
+    @JoinColumn(name = "reader_id")
+    private Reader reader;
+
+    public CheckOut(Long id, Piece piece) {
         this.id = id;
-        this.returnBook = LocalDate.of(year, month, day );
         this.borrowDate = new Date();
         this.piece = piece;
     }

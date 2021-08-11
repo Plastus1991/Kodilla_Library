@@ -6,10 +6,10 @@ import com.crud.kodillalibrary.mapper.PieceMapper;
 import com.crud.kodillalibrary.service.PieceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/piece")
@@ -24,6 +24,17 @@ public class PieceController {
 
         Piece piece = pieceMapper.mapToPiece(pieceDto);
         pieceService.savePiece(piece);
+
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/allOnStock")
+    public List<PieceDto> getPiecesOnStock() {
+        List<Piece> pieces = pieceService.getAllPieces();
+
+        List<Piece> onStack = pieces.stream()
+                .filter(p -> p.getStatus().contains("stock"))
+                .collect(Collectors.toList());
+
+        return pieceMapper.mapPieceDtoToList(onStack);
 
     }
 }

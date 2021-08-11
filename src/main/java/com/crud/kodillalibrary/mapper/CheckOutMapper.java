@@ -17,21 +17,15 @@ public class CheckOutMapper {
 
         return new CheckOut(
                 checkOutDto.getId(),
-                checkOutDto.getDay(),
-                checkOutDto.getMonth(),
-                checkOutDto.getYear(),
                 piece
         );
     }
 
     public CheckOutDto mapToCheckOutDto(CheckOut checkOut) {
+
         return new CheckOutDto(
                 checkOut.getId(),
-                checkOut.getPiece().getId(),
-                checkOut.getReturnBook().getDayOfMonth(),
-                checkOut.getReturnBook().getMonthValue(),
-                checkOut.getReturnBook().getYear()
-
+                checkOut.getPiece().getId()
         );
     }
 
